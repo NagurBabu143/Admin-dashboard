@@ -1,12 +1,13 @@
 import "./Sidebar.css";
 
-const Sidebar = ({ closeSidebar }) => {
+const Sidebar = () => {
   return (
     <div className="sidebar">
      
       <ul>
         <li><a href="/">🏠 Dashboard</a></li>
         <li><a href="/users">👥 Users</a></li>
+        <li><a href="/sales">💰 Sales</a></li> 
         <li><a href="/reports">📊 Reports</a></li>
         <li><a href="/account">⚙️ Settings</a></li>
         <li><a href="/orders">🛒 Orders</a></li>

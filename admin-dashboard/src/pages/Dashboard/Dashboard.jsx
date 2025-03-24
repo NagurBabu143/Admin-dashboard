@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Dashboard.css";
+
 import {
   Card,
   CardContent,
@@ -74,25 +75,82 @@ const Dashboard = () => {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     updatePieData(updatedUsers);
   };
+  const [salesData, setSalesData] = useState(() => {
+    return JSON.parse(localStorage.getItem("sales")) || [];
+  });
+
+  const addNewSale = () => {
+    const newSale = {
+      id: salesData.length + 1,
+      amount: Math.floor(Math.random() * 5000) + 1000,
+      date: new Date().toLocaleDateString(),
+    };
+
+    const updatedSales = [newSale, ...salesData];
+    setSalesData(updatedSales);
+    localStorage.setItem("sales", JSON.stringify(updatedSales));
+  };
+  const handleStatusChange = (id, newStatus) => {
+    const updatedSales = salesData.map((sale) =>
+      sale.id === id ? { ...sale, status: newStatus } : sale
+    );
+    setSalesData(updatedSales);
+    localStorage.setItem("sales", JSON.stringify(updatedSales)); 
+  };
+  const totalSales = salesData.reduce((acc, sale) => acc + sale.amount, 0);
+  const monthlySales = salesData
+    .filter((sale) => new Date(sale.date).getMonth() === new Date().getMonth())
+    .reduce((acc, sale) => acc + sale.amount, 0);
 
   return (
     <div className="dashboard-container">
-      <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <Typography variant="h4" className="dashboard-title">Dashboard</Typography>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Typography variant="h4" className="dashboard-title">
+          Dashboard
+        </Typography>
       </motion.div>
 
       <Grid container spacing={3}>
         {[
           { title: "Total Users", value: recentUsers.length, color: "#ff4d4d" },
           { title: "Active Users", value: pieData[0].value, color: "#4caf50" },
-          { title: "Inactive Users", value: pieData[1].value, color: "#f44336" },
+          {
+            title: "Inactive Users",
+            value: pieData[1].value,
+            color: "#f44336",
+          },
+          {
+            title: "Total Sales",
+            value: `Rs.${totalSales.toLocaleString()}`,
+            color: "#1976d2",
+          },
+          {
+            title: "Monthly Sales",
+            value: `Rs.${monthlySales.toLocaleString()}`,
+            color: "#ffa000",
+          },
         ].map((item, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.5, delay: index * 0.2 }}>
-              <Card className="dashboard-card" style={{ backgroundColor: item.color, color: "#fff" }}>
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.2 }}
+            >
+              <Card
+                className="dashboard-card"
+                style={{ backgroundColor: item.color, color: "#fff" }}
+              >
                 <CardContent>
-                  <Typography variant="h6" className="card-title">{item.title}</Typography>
-                  <Typography variant="h8" className="card-value">{item.value}</Typography>
+                  <Typography variant="h6" className="card-title">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="h8" className="card-value">
+                    {item.value}
+                  </Typography>
                 </CardContent>
               </Card>
             </motion.div>
@@ -117,7 +175,13 @@ const Dashboard = () => {
         <Typography variant="h6">User Distribution</Typography>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
-            <Pie data={pieData} dataKey="value" nameKey="name" outerRadius={100} label>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              outerRadius={100}
+              label
+            >
               {pieData.map((entry, index) => (
                 <Cell key={`cell-${index}`} fill={entry.color} />
               ))}
@@ -128,9 +192,54 @@ const Dashboard = () => {
       </div>
 
       <div className="dashboard-actions">
-        <Button variant="contained" color="primary" className="dashboard-btn" onClick={() => window.location.href = "/users"}>Manage Users</Button>
-        <Button variant="contained" color="secondary" className="dashboard-btn" onClick={() => window.location.href = "/reports"}>View Reports</Button>
-        <Button variant="contained" className="dashboard-btn dashboard-btn-green" onClick={addNewUser}>Add New User</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className="dashboard-btn"
+          onClick={() => (window.location.href = "/users")}
+        >
+          Manage Users
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className="dashboard-btn"
+          onClick={() => (window.location.href = "/reports")}
+        >
+          View Reports
+        </Button>
+        <Button
+          variant="contained"
+          className="dashboard-btn dashboard-btn-green"
+          onClick={addNewUser}
+        >
+          Add New User
+        </Button>
+
+        
+        <Button
+          variant="contained"
+          color="primary"
+          className="dashboard-btn"
+          onClick={() => (window.location.href = "/sales")}
+        >
+          Manage Sales
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          className="dashboard-btn"
+          onClick={() => (window.location.href = "/sales-reports")}
+        >
+          View Sales Reports
+        </Button>
+        <Button
+          variant="contained"
+          className="dashboard-btn dashboard-btn-green"
+          onClick={addNewSale}
+        >
+          Add New Sale
+        </Button>
       </div>
 
       <div className="dashboard-table">
@@ -145,24 +254,79 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {recentUsers.length > 0 ? recentUsers.map((user) => (
-              <tr key={user.id}>
-                <td>{user.id}</td>
-                <td>{user.name}</td>
-                <td>{user.email}</td>
-                <td>
-                  <Select value={user.status} onChange={(e) => changeUserStatus(user.id, e.target.value)} className="user-status-select">
-                    <MenuItem value="Active">Active</MenuItem>
-                    <MenuItem value="Inactive">Inactive</MenuItem>
-                  </Select>
+            {recentUsers.length > 0 ? (
+              recentUsers.map((user) => (
+                <tr key={user.id}>
+                  <td>{user.id}</td>
+                  <td>{user.name}</td>
+                  <td>{user.email}</td>
+                  <td>
+                    <Select
+                      value={user.status}
+                      onChange={(e) =>
+                        changeUserStatus(user.id, e.target.value)
+                      }
+                      className="user-status-select"
+                    >
+                      <MenuItem value="Active">Active</MenuItem>
+                      <MenuItem value="Inactive">Inactive</MenuItem>
+                    </Select>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" style={{ textAlign: "center" }}>
+                  No users found
                 </td>
               </tr>
-            )) : (
-              <tr><td colSpan="4" style={{ textAlign: "center" }}>No users found</td></tr>
             )}
           </tbody>
         </table>
       </div>
+      <div className="dashboard-table">
+      <Typography variant="h6">Recent Sales</Typography>
+      <table className="sales-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Item</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {salesData.length > 0 ? (
+            salesData.map((sale) => (
+              <tr key={sale.id}>
+                <td>{sale.id}</td>
+                <td>{sale.item}</td>
+                <td>{sale.amount.toLocaleString()}</td>
+                <td style={{ textAlign: "center" }}>{sale.date}</td>
+                <td>
+                  <Select
+                    value={sale.status || "Pending"}
+                    onChange={(e) => handleStatusChange(sale.id, e.target.value)}
+                    size="small"
+                  >
+                    <MenuItem value="Pending">Pending</MenuItem>
+                    <MenuItem value="Compeleted">Compeleted</MenuItem>
+                    <MenuItem value="Rejected">Rejected</MenuItem>
+                  </Select>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="5" style={{ textAlign: "center" }}>
+                No sales found
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
     </div>
   );
 };

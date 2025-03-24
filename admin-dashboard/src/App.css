@@ -65,11 +65,11 @@
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 180px;
+    width: 0px;
   }
   
   .content {
-    margin-left: 180px;
+    margin-left: 200px;
     width: calc(100% - 180px);
   }
 }

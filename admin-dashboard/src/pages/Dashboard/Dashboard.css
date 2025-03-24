@@ -3,7 +3,7 @@
     padding: 20px;
     background: linear-gradient(to right, #ece9e6, #ffffff);
     min-height: 100vh;
-    margin-left: 50px;
+    margin-left: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -194,4 +194,77 @@
 
 .dashboard-btn-teal:hover {
   background-color: #00796b;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.sales-table thead {
+  background: #16213e;
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.sales-table th {
+  padding: 14px;
+  text-align: left;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.sales-table td:nth-child(4), 
+.sales-table th:nth-child(4) {
+  text-align: center;
+}
+
+
+.sales-table td.approved {
+  text-align: center;
+  font-weight: bold;
+  color: #28a745;
+  background-color: #eaffea;
+  border-radius: 4px;
+}
+
+.sales-table tbody tr {
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.sales-table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.sales-table tbody tr:hover {
+  background: #eef6ff;
+  transform: scale(1.02);
+}
+
+.sales-table td {
+  padding: 12px;
+  font-size: 15px;
+  color: #444;
+}
+
+.sales-table td:first-child {
+  font-weight: bold;
+  color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .sales-table {
+    font-size: 14px;
+  }
+
+  .sales-table th,
+  .sales-table td {
+    padding: 10px;
+  }
 }

@@ -18,14 +18,13 @@ import {
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  
   useEffect(() => {
     const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
     setUsers(storedUsers);
   }, []);
 
-  
   const updateLocalStorage = (updatedUsers) => {
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     setUsers(updatedUsers);
@@ -65,8 +64,14 @@ const Users = () => {
 
   const handleClearAll = () => {
     localStorage.removeItem("users");
-    setUsers([]); 
+    setUsers([]);
   };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="users">
@@ -80,6 +85,16 @@ const Users = () => {
         </Button>
       </div>
 
+      
+      <TextField
+        label="Search Users"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+      />
+
       <TableContainer component={Paper} className="table-container">
         <Table>
           <TableHead>
@@ -92,7 +107,7 @@ const Users = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <TableRow key={user.id} className="table-row">
                 <TableCell>{user.id}</TableCell>
                 <TableCell>{user.name}</TableCell>
