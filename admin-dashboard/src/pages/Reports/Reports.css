@@ -1,0 +1,14 @@
+.reports {
+    padding: 0px 20px;
+    margin-left: 50px;
+    overflow: hidden;
+
+  }
+  
+  .chart-container {
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  

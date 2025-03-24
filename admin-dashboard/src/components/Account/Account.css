@@ -1,0 +1,73 @@
+.account-container {
+
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 0px 20px;
+    margin-left: 50px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    overflow: hidden;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+
+
+  
+  .account-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .account-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .account-form h3 {
+    margin-top: 20px;
+    color: #007bff;
+  }
+  
+  .account-form label {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  
+  .account-form input[type="text"],
+  .account-form input[type="email"],
+  .account-form input[type="password"] {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .account-form input[type="text"]:focus,
+  .account-form input[type="email"]:focus,
+  .account-form input[type="password"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  .account-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .account-btn:hover {
+    background-color: #218838;
+  }
+  
