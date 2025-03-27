@@ -14,15 +14,57 @@ import {
 } from "@mui/material";
 
 const productList = [
-  { id: 1, name: "Smartphone", price: 599, category: "Electronics", rating: 4.5, image: "/images/smartphone.jpg" },
-  { id: 2, name: "Headphones", price: 199, category: "Electronics", rating: 4.2, image: "/images/headphones.jpg" },
-  { id: 3, name: "Running Shoes", price: 120, category: "Footwear", rating: 4.7, image: "/images/shoes.jpg" },
-  { id: 4, name: "Watch", price: 250, category: "Accessories", rating: 4.3, image: "/images/watch.jpg" },
-  { id: 5, name: "Laptop", price: 1099, category: "Electronics", rating: 4.8, image: "/images/laptop.jpg" },
-  { id: 6, name: "Backpack", price: 80, category: "Accessories", rating: 4.4, image: "/images/backpack.jpg" },
+  {
+    id: 1,
+    name: "Smartphone",
+    price: 599,
+    category: "Electronics",
+    rating: 4.5,
+    image: "/images/smartphone.jpg",
+  },
+  {
+    id: 2,
+    name: "Headphones",
+    price: 199,
+    category: "Electronics",
+    rating: 4.2,
+    image: "/images/headphones.jpg",
+  },
+  {
+    id: 3,
+    name: "Running Shoes",
+    price: 120,
+    category: "Footwear",
+    rating: 4.7,
+    image: "/images/shoes.jpg",
+  },
+  {
+    id: 4,
+    name: "Watch",
+    price: 250,
+    category: "Accessories",
+    rating: 4.3,
+    image: "/images/watch.jpg",
+  },
+  {
+    id: 5,
+    name: "Laptop",
+    price: 1099,
+    category: "Electronics",
+    rating: 4.8,
+    image: "/images/laptop.jpg",
+  },
+  {
+    id: 6,
+    name: "Backpack",
+    price: 80,
+    category: "Accessories",
+    rating: 4.4,
+    image: "/images/backpack.jpg",
+  },
 ];
 
-const Products = () => {
+const Products = ({ addToCart }) => {
   const [products, setProducts] = useState(productList);
   const [category, setCategory] = useState("");
   const [sort, setSort] = useState("");
@@ -32,7 +74,9 @@ const Products = () => {
     let filteredProducts = [...productList];
 
     if (category) {
-      filteredProducts = filteredProducts.filter((p) => p.category === category);
+      filteredProducts = filteredProducts.filter(
+        (p) => p.category === category
+      );
     }
 
     filteredProducts = filteredProducts.filter(
@@ -52,12 +96,17 @@ const Products = () => {
 
   return (
     <div className="products">
-      <Typography variant="h4" className="title">Product Catalog</Typography>
+      <Typography variant="h4" className="title">
+        Product Catalog
+      </Typography>
 
       <div className="filters">
         <FormControl>
           <InputLabel>Category</InputLabel>
-          <Select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <Select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="Electronics">Electronics</MenuItem>
             <MenuItem value="Footwear">Footwear</MenuItem>
@@ -76,7 +125,9 @@ const Products = () => {
         </FormControl>
 
         <div className="price-filter">
-          <Typography>Price Range: Rs.{priceRange[0]} - Rs.{priceRange[1]}</Typography>
+          <Typography>
+            Price Range: Rs.{priceRange[0]} - Rs.{priceRange[1]}
+          </Typography>
           <Slider
             value={priceRange}
             onChange={(e, newValue) => setPriceRange(newValue)}
@@ -90,12 +141,24 @@ const Products = () => {
       <div className="product-grid">
         {products.map((product) => (
           <Card key={product.id} className="product-card">
-            <CardMedia component="img" height="200" image={product.image} alt={product.name} />
+            <CardMedia
+              component="img"
+              height="200"
+              image={product.image}
+              alt={product.name}
+            />
             <CardContent>
               <Typography variant="h6">{product.name}</Typography>
               <Typography variant="body1">Price: Rs.{product.price}</Typography>
-              <Typography variant="body2">Rating: ⭐ {product.rating}</Typography>
-              <Button variant="contained" color="primary" className="cart-button">
+              <Typography variant="body2">
+                Rating: ⭐ {product.rating}
+              </Typography>
+              <Button
+                variant="contained"
+                color="primary"
+                className="cart-button"
+                onClick={() => addToCart(product)}
+              >
                 Add to Cart
               </Button>
             </CardContent>

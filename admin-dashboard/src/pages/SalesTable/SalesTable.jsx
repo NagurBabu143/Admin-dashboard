@@ -7,6 +7,7 @@ import {
   TableBody,
   Button,
   TextField,
+  TablePagination,
 } from "@mui/material";
 import "./SalesTable.css";
 
@@ -16,12 +17,13 @@ const SalesTable = () => {
   const [editedSale, setEditedSale] = useState(null);
   const [newSale, setNewSale] = useState({ item: "", amount: "", date: "" });
 
- 
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
   useEffect(() => {
     const storedSales = JSON.parse(localStorage.getItem("sales")) || [];
     setSales(storedSales);
   }, []);
-
 
   useEffect(() => {
     if (sales.length > 0) {
@@ -29,22 +31,21 @@ const SalesTable = () => {
     }
   }, [sales]);
 
-
   const handleAddSale = () => {
     if (!newSale.item || !newSale.amount || !newSale.date) return;
 
-    const updatedSales = [...sales, { id: Date.now(), ...newSale }];
+    const nextId = sales.length > 0 ? sales[sales.length - 1].id + 1 : 1;
+    const updatedSales = [...sales, { id: nextId, ...newSale }];
+
     setSales(updatedSales);
     setNewSale({ item: "", amount: "", date: "" });
   };
-
 
   const handleEdit = (id) => {
     setEditingId(id);
     const saleToEdit = sales.find((sale) => sale.id === id);
     setEditedSale({ ...saleToEdit });
   };
-
 
   const handleSaveEdit = () => {
     const updatedSales = sales.map((sale) =>
@@ -60,18 +61,30 @@ const SalesTable = () => {
     setEditedSale(null);
   };
 
- 
   const handleDeleteSale = (id) => {
     const updatedSales = sales.filter((sale) => sale.id !== id);
     setSales(updatedSales);
     localStorage.setItem("sales", JSON.stringify(updatedSales));
   };
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const paginatedSales = sales.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+
   return (
     <div className="sales-table-container" style={{ padding: "20px" }}>
       <h2>Sales Records</h2>
 
-      
       <div className="sales-form" style={{ marginBottom: "20px" }}>
         <TextField
           label="Item"
@@ -97,7 +110,6 @@ const SalesTable = () => {
         </Button>
       </div>
 
-    
       <Table>
         <TableHead>
           <TableRow>
@@ -109,7 +121,7 @@ const SalesTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {sales.map((sale) => (
+          {paginatedSales.map((sale) => (
             <TableRow key={sale.id}>
               <TableCell>{sale.id}</TableCell>
               <TableCell>
@@ -193,6 +205,16 @@ const SalesTable = () => {
           ))}
         </TableBody>
       </Table>
+
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={sales.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </div>
   );
 };

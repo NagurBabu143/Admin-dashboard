@@ -2,10 +2,10 @@ import React from "react";
 import "./Orders.css";
 
 const Orders = ({ cart = [], removeFromCart, updateQuantity }) => {
-    // Ensure cart is always an array
+   
     const safeCart = Array.isArray(cart) ? cart : [];
 
-    // Calculate Total Price
+ 
     const totalPrice = safeCart.reduce((total, item) => total + item.price * item.quantity, 0);
 
     return (

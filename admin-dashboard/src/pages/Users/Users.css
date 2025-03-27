@@ -5,7 +5,11 @@
     min-height: 100vh;
     overflow-x: auto;
 }
-
+.action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 .btn-container {
     display: flex;
     gap: 15px;
@@ -60,18 +64,20 @@
 .edit-btn {
     background-color: #007bff !important;
     color: white !important;
+    transition: transform 0.2s ease-in-out;
 }
 
-.delete-btn {
+.delete-btns {
     background-color: #dc3545 !important;
     color: white !important;
+    
 }
 
 .edit-btn:hover {
     background-color: #0056b3 !important;
+    transform: translateY(-2px);
 }
-
-.delete-btn:hover {
+.delete-btns:hover {
     background-color: #b02a37 !important;
 }
 
@@ -115,3 +121,126 @@
         padding: 5px 8px;
     }
 }
+
+.users {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .users h2 {
+    color: #1976d2;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+  
+  .add-btn {
+    background-color: #4caf50 !important;
+  }
+  
+  .clear-btn {
+    background-color: #f44336 !important;
+  }
+  
+  .table-container {
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table-header {
+    background-color: #1976d2;
+  }
+  
+  .table-header .MuiTableCell-head {
+    color: white;
+    font-weight: bold;
+  }
+  
+  .table-row:nth-child(even) {
+    background-color: #f5f5f5;
+  }
+  
+  .table-row:hover {
+    background-color: #e3f2fd;
+  }
+  
+  .user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .preview-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-top: 10px;
+    border: 2px solid #ddd;
+    display: block;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .edit-btn {
+    background-color: #ff9800 !important;
+  }
+  
+  .delete-btns {
+    background-color: #f44336 !important;
+  }
+  
+  .MuiDialog-paper {
+    border-radius: 12px !important;
+    padding: 10px;
+  }
+  
+  .MuiTextField-root {
+    margin-bottom: 15px !important;
+  }
+  
+  .MuiTablePagination-root {
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .btn-container {
+      flex-direction: column;
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .table-header .MuiTableCell-head {
+      padding: 8px;
+      font-size: 12px;
+    }
+    
+    .table-row .MuiTableCell-root {
+      padding: 8px;
+      font-size: 12px;
+    }
+    
+    .user-image {
+      width: 40px;
+      height: 40px;
+    }
+  }

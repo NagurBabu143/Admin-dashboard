@@ -1,11 +1,11 @@
 .sidebar {
     position: fixed;
-    top: 30px;
+    top: 45px;
     left: 1px;
     width: 260px;
     height: calc(100vh - 60px);
-    background: linear-gradient(135deg, #2C3E50, #8E44AD);
-    color: #2c3e50;
+    background: white;
+    color: #070707;
     padding: 15px;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
 }
 
 .sidebar ul li a {
-    color: #f6f8f9;
+    color: black;
     text-decoration: none;
     font-size: 12px;
     display: flex;
@@ -97,6 +97,7 @@
 @media (max-width: 1024px) {
     .sidebar {
         width: 180px;
+        color: #000;
     }
 
     .sidebar ul li a {

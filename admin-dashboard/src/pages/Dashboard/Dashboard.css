@@ -3,12 +3,27 @@
     padding: 20px;
     background: linear-gradient(to right, #ece9e6, #ffffff);
     min-height: 100vh;
-    margin-left: 20px;
+    margin-left: -5px;
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow: hidden;
   }
+  .dashboard-charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .dashboard-chart {
+    flex: 1;
+    min-width: 45%; 
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
   
   .dashboard-title {
     text-align: center;
@@ -25,56 +40,84 @@
     justify-content: center;
     gap: 20px;
     margin-top: 20px;
-    height: 10px;
+    padding: 10px;
   }
   
   .dashboard-card {
-    color: white;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    text-align: center;
-    padding: 15px;
-    width: 130px;
-    height: 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
   
+  /* Card hover effect */
   .dashboard-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
   }
   
- 
-  .total-users {
-    background: linear-gradient(135deg, #ff4d4d, #ff8080);
-  }
-  
-  .total-reports {
-    background: linear-gradient(135deg, #ff9800, #ffcc80);
-  }
-  
-  .active-users {
-    background: linear-gradient(135deg, #4caf50, #81c784);
-  }
-  
-  .new-signups {
-    background: linear-gradient(135deg, #1976d2, #64b5f6);
-  }
-  
+  /* Title inside the card */
   .card-title {
     font-size: 1rem;
     font-weight: bold;
+    text-transform: uppercase;
   }
   
+  /* Value inside the card */
   .card-value {
-    font-size:1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-top: 10px;
   }
   
+  /* Button inside the card */
+  .card-button {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background-color: #ffffff !important;
+    color: inherit;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+  
+  .card-button:hover {
+    background: #f5f5f5 !important;
+    color: inherit;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 900px) {
+    .dashboard-card {
+      padding: 15px;
+    }
+    .card-title {
+      font-size: 0.9rem;
+    }
+    .card-value {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .dashboard-card {
+      padding: 12px;
+    }
+    .card-title {
+      font-size: 0.8rem;
+    }
+    .card-value {
+      font-size: 1.2rem;
+    }
+    .card-button {
+      font-size: 0.7rem;
+      padding: 6px 10px;
+    }
+  }
+
 
   .dashboard-chart {
     margin-top: 30px;
